@@ -8,6 +8,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         Button btn = findViewById(R.id.btn);
-        SharedPreferences sharedPref = getSharedPreferences("")
+        SharedPreferences sharedPref = getSharedPreferences("Testing", MODE_PRIVATE);
+        TextView tv = findViewById(r.id.tv);
+        tv.setText(sharedPref.getString("userinput", "No input yet"));
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,9 +49,13 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 EditText etname = findViewById(R.id.etname);
                 String name = etname.getText().toString();
-                SharedPreferences sharedPreferences = getSharedPreferences("Testapp", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("userinput", name);
+                editor.apply();
+
+
             }
 
 
-    })
-;}}
+    });
+}}
